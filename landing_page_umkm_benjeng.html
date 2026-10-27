@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BENJEnGEGAS (Benjeng Gerakan Akselerasi Usaha)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Font Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        /* Custom scrollbar for smooth feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <!-- ========================================== -->
+    <!-- OVERLAY & SIDEBAR MENU (HIDE / SHOW DRAWER) -->
+    <!-- ========================================== -->
+    <div id="sidebar-overlay" class="fixed inset-0 bg-slate-900/60 z-50 opacity-0 pointer-events-none transition-opacity duration-300"></div>
+    <aside id="sidebar-menu" class="fixed top-0 left-0 h-full w-80 bg-white z-50 shadow-2xl transform -translate-x-full transition-transform duration-300 ease-in-out flex flex-col">
+        <!-- Sidebar Header -->
+        <div class="p-5 bg-emerald-700 text-white flex items-center justify-between shadow-md">
+            <div class="flex items-center space-x-3">
+                <div class="bg-white text-emerald-700 p-2 rounded-lg font-bold text-lg">
+                    <i class="fa-solid fa-store"></i>
+                </div>
+                <div>
+                    <h2 class="font-bold text-lg leading-tight">BENJEnGEGAS</h2>
+                    <p class="text-xs text-emerald-100">Benjeng Gerakan Akselerasi Usaha</p>
+                </div>
+            </div>
+            <button id="close-sidebar-btn" class="text-white hover:bg-emerald-800 p-2 rounded-lg transition" aria-label="Tutup Menu">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Sidebar Links -->
+        <nav class="flex-1 p-4 space-y-2 overflow-y-auto">
+            <a href="#" class="flex items-center space-x-3 px-4 py-3 text-emerald-700 bg-emerald-50 rounded-xl font-medium transition">
+                <i class="fa-solid fa-house w-5 text-center text-lg"></i>
+                <span>Home</span>
+            </a>
+            <a href="contact_helpdesk.html" onclick="closeSidebar()" class="flex items-center space-x-3 px-4 py-3 text-slate-700 hover:bg-slate-100 rounded-xl font-medium transition">
+                <i class="fa-solid fa-headset w-5 text-center text-lg text-emerald-600"></i>
+                <span>Helpdesk & Contact Us</span>
+            </a>
+            <!-- <a href="#contact" onclick="closeSidebar()" class="flex items-center space-x-3 px-4 py-3 text-slate-700 hover:bg-slate-100 rounded-xl font-medium transition">
+                <i class="fa-solid fa-address-book w-5 text-center text-lg text-emerald-600"></i>
+                <span>Contact Us</span>
+            </a> -->
+            <hr class="my-3 border-slate-200">
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdkICDIGSJyZBOFPVjD40KqwubPqWWl6ifyEjE1601zlk-EMQ/viewform" target="_blank" class="flex items-center space-x-3 px-4 py-3 text-amber-800 bg-amber-50 hover:bg-amber-100 border border-amber-200 rounded-xl font-medium transition">
+                <i class="fa-solid fa-file-signature w-5 text-center text-lg text-amber-600"></i>
+                <span>Form Pendaftaran UMKM</span>
+            </a>
+			
+			<div class="space-y-1 pt-2 border-t border-slate-100">
+                <p class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider px-4 mb-2">Kategori Usaha</p>
+                <a href="#main-content" onclick="selectCategoryFromSidebar('Kuliner')" class="flex items-center gap-3 px-4 py-2 rounded-lg text-slate-600 hover:bg-emerald-50 hover:text-emerald-700 text-sm transition">
+                    <i class="fa-solid fa-utensils w-5 text-emerald-600"></i> Kuliner
+                </a>
+                <a href="#main-content" onclick="selectCategoryFromSidebar('Kerajinan')" class="flex items-center gap-3 px-4 py-2 rounded-lg text-slate-600 hover:bg-emerald-50 hover:text-emerald-700 text-sm transition">
+                    <i class="fa-solid fa-gem w-5 text-emerald-600"></i> Kerajinan
+                </a>
+                <a href="#main-content" onclick="selectCategoryFromSidebar('Fashion')" class="flex items-center gap-3 px-4 py-2 rounded-lg text-slate-600 hover:bg-emerald-50 hover:text-emerald-700 text-sm transition">
+                    <i class="fa-solid fa-shirt w-5 text-emerald-600"></i> Fashion
+                </a>
+                <a href="#main-content" onclick="selectCategoryFromSidebar('Jasa & Pelayanan')" class="flex items-center gap-3 px-4 py-2 rounded-lg text-slate-600 hover:bg-emerald-50 hover:text-emerald-700 text-sm transition">
+                    <i class="fa-solid fa-briefcase w-5 text-emerald-600"></i> Jasa & Pelayanan & Lainnya
+                </a>
+                <a href="#main-content" onclick="selectCategoryFromSidebar('Pertanian & Hasil Bumi')" class="flex items-center gap-3 px-4 py-2 rounded-lg text-slate-600 hover:bg-emerald-50 hover:text-emerald-700 text-sm transition">
+                    <i class="fa-solid fa-wheat-awn mr-1 w-5 text-emerald-600"></i> Pertanian & Hasil Bumi
+                </a>
+            </div>
+        </nav>
+
+        <!-- Sidebar Footer -->
+        <div class="p-4 border-t border-slate-100 bg-slate-50 text-xs text-slate-500 text-center">
+            <p>&copy; 2026 Kecamatan Benjeng, Gresik</p>
+            <p class="mt-1 text-slate-400">Statis Website</p>
+        </div>
+    </aside>
+
+
+    <!-- ========================================== -->
+    <!-- HEADER / NAVBAR ATAS                       -->
+    <!-- ========================================== -->
+    <header class="bg-emerald-700 text-white shadow-lg sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-2 md:gap-6">
+            
+            <!-- SAMPLING KIRI: Toggle Button + Logo / Title -->
+            <div class="flex items-center space-x-3 shrink-0">
+                <button id="open-sidebar-btn" class="p-2.5 hover:bg-emerald-800 rounded-xl text-white transition focus:outline-none focus:ring-2 focus:ring-white/50" title="Buka Menu Sidebar">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+                <a href="#" class="flex items-center space-x-2.5">
+                    <div class="bg-amber-400 text-emerald-900 p-2 rounded-xl font-extrabold text-lg shadow-inner">
+                        <i class="fa-solid fa-shop"></i>
+                    </div>
+                    <div class="hidden sm:block">
+                        <h1 class="font-bold text-lg tracking-wide leading-tight">BENJEnGEGAS</h1>
+                        <p class="text-[10px] text-emerald-200 uppercase tracking-wider font-semibold">Benjeng Gerakan Akselerasi Usaha</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- SAMPLING TENGAH: Search Bar (Ditempatkan tepat di tengah header) -->
+            <div class="flex-1 max-w-xl mx-2">
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400">
+                        <i class="fa-solid fa-magnifying-glass text-sm"></i>
+                    </span>
+                    <input type="text" id="navbar-search" placeholder="Cari kuliner, Jasa & Pelayanan, kerajinan, atau nama UMKM..." class="w-full pl-10 pr-9 py-2 bg-white/95 hover:bg-white text-slate-800 placeholder-slate-400 rounded-full text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 shadow-inner transition">
+                    <button id="clear-search-btn" class="hidden absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400 hover:text-slate-600">
+                        <i class="fa-solid fa-circle-xmark text-sm"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- SAMPLING KANAN: Tombol / Registration Logo Info Pendaftaran -->
+            <div class="flex items-center space-x-2 shrink-0">
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdkICDIGSJyZBOFPVjD40KqwubPqWWl6ifyEjE1601zlk-EMQ/viewform" target="_blank" class="flex items-center gap-2 bg-amber-400 hover:bg-amber-300 text-emerald-950 px-3.5 py-2 rounded-full font-bold text-xs sm:text-sm shadow-md hover:shadow-lg transition transform active:scale-95" title="Daftarkan UMKM Anda Sekarang">
+                    <i class="fa-solid fa-user-plus text-base"></i>
+                    <span class="hidden md:inline">Pendaftaran UMKM</span>
+                </a>
+            </div>
+
+        </div>
+    </header>
+
+
+    <!-- ========================================== -->
+    <!-- HERO SECTION & BANNER INFORMASI           -->
+    <!-- ========================================== -->
+    <section class="bg-gradient-to-br from-emerald-800 via-teal-800 to-slate-900 text-white py-20 px-4">
+        <div class="max-w-7xl mx-auto text-center space-y-4 py-20 	">
+            <!--<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-600/50 text-emerald-200 border border-emerald-500/30">
+                <i class="fa-solid fa-circle-check text-amber-400"></i> Portal Resmi Listing Produk Lokal Benjeng
+            </span>-->
+            <h2 style="text-transform:uppercase;" class="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight">Eksplor Usaha<br>Produk Unggulan Benjeng</h2>
+            <!--<p class="text-slate-200 text-xs sm:text-sm max-w-2xl mx-auto leading-relaxed">
+                Temukan aneka kuliner lezat, kerajinan tangan, konveksi, dan layanan profesional langsung dari pengusaha lokal di 23 desa se-Kecamatan Benjeng.
+            </p>-->
+
+            <!-- Kategori Quick Filter Chips -->
+            <div class="flex flex-wrap justify-center gap-2 pt-2" id="kategori-chips">
+                <button data-kat="all" class="chip-btn active px-4 py-1.5 rounded-full text-xs font-semibold bg-amber-400 text-emerald-950 shadow transition">Semua</button>
+                <button data-kat="Kuliner" class="chip-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-white/10 hover:bg-white/20 text-white backdrop-blur transition"><i class="fa-solid fa-utensils mr-1"></i> Kuliner</button>
+                <button data-kat="Kerajinan" class="chip-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-white/10 hover:bg-white/20 text-white backdrop-blur transition"><i class="fa-solid fa-scissors mr-1"></i> Kerajinan</button>
+                <button data-kat="Fashion" class="chip-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-white/10 hover:bg-white/20 text-white backdrop-blur transition"><i class="fa-solid fa-shirt mr-1"></i> Fashion</button>
+                <button data-kat="Jasa & Pelayanan" class="chip-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-white/10 hover:bg-white/20 text-white backdrop-blur transition"><i class="fa-solid fa-wrench mr-1"></i> Jasa & Pelayanan & Pelayanan</button>
+                <button data-kat="Pertanian & Hasil Bumi" class="chip-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-white/10 hover:bg-white/20 text-white backdrop-blur transition"><i class="fa-solid fa-wheat-awn mr-1"></i> Pertanian & Hasil Bumi </button>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ========================================== -->
+    <!-- MAIN CONTENT - LISTING FLEXBOX & INFINITE  -->
+    <!-- ========================================== -->
+    <main class="max-w-7xl mx-auto px-4 py-8 flex-1 w-full">
+        
+        <!-- Header Listing Info -->
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-6 border-b border-slate-200 pb-4">
+            <div>
+                <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                    <i class="fa-solid fa-border-all text-emerald-600"></i> Katalog UMKM
+                </h3>
+                <p class="text-xs text-slate-500">Menampilkan hasil pencarian berdasarkan data Google Form terbaru</p>
+            </div>
+            <div class="text-xs bg-emerald-50 text-emerald-800 border border-emerald-200 px-3 py-1.5 rounded-lg font-medium">
+                Total Terdaftar: <span id="total-count" class="font-bold text-emerald-700">0</span> UMKM
+            </div>
+        </div>
+
+        <!-- CONTAINER FLEXBOX (LISTING DISPLAY FLEX LAYOUT) -->
+        <!-- Menggunakan display: flex dengan flex-wrap untuk merender kartu UMKM per baris -->
+        <div id="umkm-flex-container" class="flex flex-wrap -mx-2">
+            <!-- Kartu akan dimasukkan secara dinamis lewat JS -->
+        </div>
+
+        <!-- INFINITE SCROLL LOADING INDICATOR & END OF LIST MESSAGE -->
+        <div id="loading-indicator" class="py-10 text-center flex flex-col items-center justify-center">
+            <div class="inline-flex items-center gap-3 px-4 py-2 bg-white rounded-full shadow-md border border-slate-200 text-slate-600 text-xs font-semibold">
+                <i class="fa-solid fa-spinner fa-spin text-emerald-600 text-base"></i>
+                <span>Memuat listing UMKM berikutnya...</span>
+            </div>
+        </div>
+
+        <div id="end-message" class="hidden py-10 text-center">
+            <div class="inline-block p-4 bg-slate-100 rounded-2xl text-slate-500 text-xs font-medium max-w-sm">
+                <i class="fa-solid fa-check-circle text-emerald-600 text-lg mb-1 block"></i>
+                Semua data listing UMKM telah ditampilkan seluruhnya.
+            </div>
+        </div>
+
+        <!-- EMPTY STATE (JIKA TIDAK ADA HASIL SEARCH) -->
+        <div id="empty-state" class="hidden py-16 text-center bg-white rounded-2xl border border-slate-200 my-6">
+            <div class="w-16 h-16 bg-slate-100 text-slate-400 rounded-full flex items-center justify-center mx-auto mb-3 text-2xl">
+                <i class="fa-solid fa-magnifying-glass-slash"></i>
+            </div>
+            <h4 class="font-bold text-slate-700 text-base">UMKM Tidak Ditemukan</h4>
+            <p class="text-xs text-slate-500 max-w-xs mx-auto mt-1">Coba gunakan kata kunci pencarian lain atau pilih kategori yang sesuai.</p>
+        </div>
+
+    </main>
+
+
+    <!-- ========================================== -->
+    <!-- HELPDESK & CONTACT SECTION (SEKSI BANTUAN) -->
+    <!-- ========================================== -->
+    <section id="helpdesk" class="bg-white border-t border-slate-200 py-12 px-4 mt-8">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Helpdesk Box -->
+            <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                <div class="w-10 h-10 bg-emerald-100 text-emerald-700 rounded-xl flex items-center justify-center font-bold text-xl mb-4">
+                    <i class="fa-solid fa-headset"></i>
+                </div>
+                <h4 class="font-bold text-base text-slate-800 mb-2">Pusat Bantuan & Helpdesk UMKM</h4>
+                <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                    Apakah Anda pelaku UMKM di Kecamatan Benjeng yang memerlukan bantuan perubahan data, kendala pendaftaran, atau konsultasi legalitas NIB? Tim pendamping UMKM siap membantu Anda.
+                </p>
+                <a href="https://wa.me/6281234567890?text=Halo%20Helpdesk%20UMKM%20Benjeng,%20saya%20butuh%20bantuan" target="_blank" class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2.5 rounded-xl text-xs font-semibold transition">
+                    <i class="fa-brands fa-whatsapp text-sm"></i> Hubungi Helpdesk via WA
+                </a>
+            </div>
+
+            <!-- Contact Box -->
+            <div id="contact" class="bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                <div class="w-10 h-10 bg-amber-100 text-amber-700 rounded-xl flex items-center justify-center font-bold text-xl mb-4">
+                    <i class="fa-solid fa-building-columns"></i>
+                </div>
+                <h4 class="font-bold text-base text-slate-800 mb-2">Kantor Kecamatan Benjeng</h4>
+                <p class="text-xs text-slate-600 leading-relaxed mb-3">
+                    Jl. Raya Benjeng No. 1, Kecamatan Benjeng, Kabupaten Gresik, Jawa Timur 61172.
+                </p>
+                <div class="space-y-1.5 text-xs text-slate-600">
+                    <p><i class="fa-solid fa-envelope text-emerald-600 w-5"></i> umkm@benjeng.gresikkab.go.id</p>
+                    <p><i class="fa-solid fa-clock text-emerald-600 w-5"></i> Senin - Jumat (08:00 - 15:00 WIB)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ========================================== -->
+    <!-- FOOTER                                     -->
+    <!-- ========================================== -->
+    <footer class="bg-slate-900 text-slate-400 py-8 text-center text-xs border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 space-y-3">
+            <div class="flex items-center justify-center space-x-2 text-slate-200 font-bold">
+                <i class="fa-solid fa-store text-emerald-500"></i>
+                <span>DIREKTORI UMKM KECAMATAN BENJENG</span>
+            </div>
+            <p>Sistem Pendataan & Kompilasi Produk Lokal Berbasis Google Form & GitHub Pages.</p>
+            <p class="text-slate-600">&copy; 2026 Pemerintah Kecamatan Benjeng, Kabupaten Gresik.</p>
+        </div>
+    </footer>
+
+
+    <!-- ========================================== -->
+    <!-- JAVASCRIPT LOGIC & DATA HANDLING           -->
+    <!-- ========================================== -->
+    <script src="raw_umkm_database.js"></script>
+    <script>
+
+        /* ==========================================================
+           1. SIMULASI DATA UMKM BENJENG (Bisa bersumber dari images/ & CSV)
+           ========================================================== */
+        // const RAW_UMKM_DATABASE = [
+        //     { id: 1, nama: "Keripik Singkong Renyah Bu Ani", kategori: "Kuliner", pemilik: "Ibu Ani", desa: "Desa Metatu", kontak: "081234567801", deskripsi: "Keripik singkong gurih aneka rasa balado, keju, dan original khas Metatu.", gambar: "images/foto1.jpg" },
+        //     { id: 2, nama: "Batik Tulis khas Benjeng", kategori: "Kerajinan", pemilik: "Bpk. Subagyo", desa: "Desa Benjeng", kontak: "081234567802", deskripsi: "Kain batik motif orisinal buatan tangan perajin lokal Benjeng.", gambar: "images/foto2.jpg" },
+        //     { id: 3, nama: "Konveksi Kaos & Seragam Jaya", kategori: "Fashion", pemilik: "H. Ridwan", desa: "Desa Bulurejo", kontak: "081234567803", deskripsi: "Menerima jahit pesanan seragam sekolah, komunitasi, dan kaos partai.", gambar: "images/foto3.jpg" },
+        //     { id: 4, nama: "Bengkel Las Berkah Abadi", kategori: "Jasa & Pelayanan", pemilik: "Mas Yudi", desa: "Desa Kalipadang", kontak: "081234567804", deskripsi: "Jasa & Pelayanan pembuatan kanopi, pagar besi, teralis, dan konstruksi ringan.", gambar: "images/foto4.jpg" },
+        //     { id: 5, nama: "Madu Murni Hutan Benjeng", kategori: "Pertanian & Hasil Bumi", pemilik: "Pak Teguh", desa: "Desa Munggugianti", kontak: "081234567805", deskripsi: "Madu murni alami hasil ternak lebah unggulan tanpa campuran buatan.", gambar: "images/foto5.jpg" },
+        //     { id: 6, nama: "Kue Basah & Jajanan Pasar Mba Tri", kategori: "Kuliner", pemilik: "Mba Tri", desa: "Desa Sirnoboyo", kontak: "081234567806", deskripsi: "Aneka lemper, pastel, risoles, dan bolu kukus segar setiap pagi.", gambar: "images/foto6.jpg" },
+            
+        //     { id: 7, nama: "Kerajinan Anget Anyaman Bambu", kategori: "Kerajinan", pemilik: "Mbah Suro", desa: "Desa Sedapurklagen", kontak: "081234567807", deskripsi: "Tampah, besek, dan aneka perabot bambu tahan lama.", gambar: "images/foto7.jpg" },
+        //     { id: 8, nama: "Warung Sambal Belut Mbok Darmi", kategori: "Kuliner", pemilik: "Mbok Darmi", desa: "Desa Kedungrukem", kontak: "081234567808", deskripsi: "Kuliner pedas khas belut goreng renyah dan sambal ulek segar.", gambar: "images/foto8.jpg" },
+        //     { id: 9, nama: "Penjahit Modiste Anggun", kategori: "Fashion", pemilik: "Ibu Hartini", desa: "Desa Klampok", kontak: "081234567809", deskripsi: "Spesialis jahit kebaya, gaun pesta, dan busana muslim wanita.", gambar: "images/foto9.jpg" },
+        //     { id: 10, nama: "Servis Elektronik Fast Fix", kategori: "Jasa & Pelayanan", pemilik: "Mas Andre", desa: "Desa Banter", kontak: "081234567810", deskripsi: "Perbaikan TV LED, kipas angin, mesin cuci, dan alat rumah tangga.", gambar: "images/foto10.jpg" },
+        //     { id: 11, nama: "Beras Organik Murni", kategori: "Pertanian & Hasil Bumi", pemilik: "Kelompok Tani", desa: "Desa Karangankidul", kontak: "081234567811", deskripsi: "Beras putih dan beras merah segar bebas pestisida kimia.", gambar: "images/foto11.jpg" },
+        //     { id: 12, nama: "Kopi Cangkruk Mas Bro", kategori: "Kuliner", pemilik: "Mas Dimas", desa: "Desa Dermo", kontak: "081234567812", deskripsi: "Biji kopi racikan khas Gresik dengan aroma harum nikmat.", gambar: "images/foto12.jpg" },
+
+        //     { id: 13, nama: "Catering Aqiqah & Prasmanan", kategori: "Kuliner", pemilik: "Ustadz Hanafi", desa: "Desa Munggugebang", kontak: "081234567813", deskripsi: "Layanan catering olahan kambing lezat dan higienis.", gambar: "images/foto13.jpg" },
+        //     { id: 14, nama: "Furnitur Kayu Jati Ukir", kategori: "Kerajinan", pemilik: "Pak Slamet", desa: "Desa Punduttrate", kontak: "081234567814", deskripsi: "Meja, kursi, dan lemari jati solid bermutu tinggi.", gambar: "images/foto14.jpg" },
+        //     { id: 15, nama: "Toko Hijab & Busana Syari", kategori: "Fashion", pemilik: "Mba Nisa", desa: "Desa Gluranploso", kontak: "081234567815", deskripsi: "Koleksi kerudung kekinian, gamis, dan aksesoris muslimah.", gambar: "images/foto15.jpg" },
+        //     { id: 16, nama: "Salon & Rias Pengantin Ayu", kategori: "Jasa & Pelayanan", pemilik: "Mba Eka", desa: "Desa Lundo", kontak: "081234567816", deskripsi: "Jasa & Pelayanan MUA wisuda, pernikahan, potong rambut, dan perawatan tubuh.", gambar: "images/foto16.jpg" },
+        //     { id: 17, nama: "Kerupuk Ikan Payus Gurih", kategori: "Kuliner", pemilik: "Ibu Lilik", desa: "Desa Jogodalu", kontak: "081234567817", deskripsi: "Kerupuk olahan ikan segar tanpa bahan pengawet.", gambar: "images/foto17.jpg" },
+        //     { id: 18, nama: "Bibit Tanaman Buah Unggul", kategori: "Pertanian & Hasil Bumi", pemilik: "Pak Kholil", desa: "Desa Plembangan", kontak: "081234567818", deskripsi: "Bibit manga, kelengkeng, dan alpukat cepat buah.", gambar: "images/foto18.jpg" },
+
+        //     { id: 19, nama: "Es Cendol Dawet Ayu", kategori: "Kuliner", pemilik: "Pak Gunadi", desa: "Desa Waleng", kontak: "081234567819", deskripsi: "Minuman dawet gula jawa murni dan santan gurih alami.", gambar: "images/foto19.jpg" },
+        //     { id: 20, nama: "Toko Sembako Murah Jaya", kategori: "Jasa & Pelayanan", pemilik: "Hj. Fatimah", desa: "Desa Deliksumber", kontak: "081234567820", deskripsi: "Menyediakan kebutuhan pokok harian harga grosir eceran.", gambar: "images/foto20.jpg" },
+        //     { id: 21, nama: "Tas Kulit Sintetis Custom", kategori: "Kerajinan", pemilik: "Mas Arif", desa: "Desa Kedungsekar", kontak: "081234567821", deskripsi: "Dompet, pouch, dan tas seminar bahan sintetis elegan.", gambar: "images/foto21.jpg" },
+        //     { id: 22, nama: "Soto Ayam Khas Gresik Pak No", kategori: "Kuliner", pemilik: "Pak No", desa: "Desa Metatu", kontak: "081234567822", deskripsi: "Soto ayam kuah kental dengan koya renyah istimewa.", gambar: "images/foto22.jpg" },
+        //     { id: 23, nama: "Jasa & Pelayanan Fotografi & Cetak Foto", kategori: "Jasa & Pelayanan", pemilik: "Mas Irfan", desa: "Desa Benjeng", kontak: "081234567823", deskripsi: "Foto produk UMKM, cetak banner, dan dokumen kilat.", gambar: "images/foto23.jpg" },
+        //     { id: 24, nama: "Oleh-oleh Sambal Pencit", kategori: "Kuliner", pemilik: "Ibu Nanik", desa: "Desa Bulurejo", kontak: "081234567824", deskripsi: "Sambal mangga muda kemasan botol siap saji nikmat.", gambar: "images/foto24.jpg" }
+
+            
+        // ];
+
+        /* Fallback gambar placeholder modern jika file gambar lokal tidak ada */
+        function getFallbackImage(kategori, umkmId = 0) {
+            const bgMap = {
+                    'Kuliner': [
+                '1504674900247-0877df9cc836', // Piring makanan & saus
+                '1565299624946-b28f40a0ae38', // Pizza & sajian lezat
+                '1555396273-367ea4eb4db5', // Restoran & meja makan
+                '1476224203421-9ac39bcb3327', // Aneka kuliner
+                '1498837167922-ddd27525d352'  // Makanan segar & bumbu
+            ],
+            'Kerajinan': [
+                '1528129550655', // Seni kerajinan tangan
+                '1513519245088-0e12902e5a38', // Rajutan / dekorasi
+                '1544816155-12df9643f363', // Kerajinan tangan / karya seni
+                '1578749556568-bc2c40e68b61', // Barang tanah liat / tembikar
+                '1452860606245-08befc0ff44b'  // Peralatan kerajinan
+            ],
+            'Fashion': [
+                '1489987707025-afc232f7ea0f', // Pakaian / Baju di gantungan
+                '1445205170230-053b83016050', // Toko fashion / busana
+                '1618783129985-dd97dbe4ad99', // Koleksi pakaian modern
+                '1490481651871-ab68de25d43d', // Pakaian & aksesoris
+                '1483985988355-763728e1935b'  // Belanja fashion
+            ],
+            'Jasa & Lainnya': [
+                '1581092918056-0c4c3acd3789', // Teknisi / Bengkel / Pekerja
+                '1595521488367-9b130f86bbe3', // Servis kendaraan / perbaikan
+                '1615906655593-ad0386982a0f', // Jasa perbaikan / bengkel
+                '1521791136064-7986c2920216', // Jasa konsultasi / kantor
+                '1556742049-0a67daf40955'  // Pelayanan pelanggan / transaksi
+            ],
+            'Pertanian': [
+                '1500937386664-56d1dfef3854', // Pemandangan sawah hijau
+                '1582869816583-0c41870e60dc', // Hasil tani / buah segar
+                '1595974482597-4b8da8879bc5', // Ladang pertanian
+                '1592417817098-8f3d6eb16655', // Tanaman & hasil bumi
+                '1574943320219-553eb213f72d'  // Panen & sektor tani
+            ]
+                };
+            const id = bgMap[kategori] || bgMap['Kuliner'];
+            const randomIndex = Math.floor(Math.random() * id.length + umkmId) % id.length;
+            const selectedId = id[Math.floor(randomIndex)];
+            return `https://images.unsplash.com/photo-${selectedId}?auto=format&fit=crop&w=500&q=80`;
+        }
+
+        /* ==========================================================
+           2. STATE MANAGEMENT & INFINITE SCROLL CONFIG
+           ========================================================== */
+        const BATCH_SIZE = 6; // Memuat 6 kartu per batch (setara 6 baris fleksibel)
+        let filteredDataset = [...RAW_UMKM_DATABASE];
+        let currentlyDisplayedCount = 0;
+        let isLoading = false;
+        let selectedCategory = 'all';
+        let searchQuery = '';
+
+        /* DOM Elements */
+        const flexContainer = document.getElementById('umkm-flex-container');
+        const loadingIndicator = document.getElementById('loading-indicator');
+        const endMessage = document.getElementById('end-message');
+        const emptyState = document.getElementById('empty-state');
+        const totalCountEl = document.getElementById('total-count');
+        const searchInput = document.getElementById('navbar-search');
+        const clearSearchBtn = document.getElementById('clear-search-btn');
+
+        /* ==========================================================
+           3. RENDER FUNCTION (DISPLAY FLEX ITEM CARDS)
+           ========================================================== */
+        function selectCategoryFromSidebar(kategori) {
+            // Tutup sidebar drawer terlebih dahulu
+            closeSidebar();
+            
+            // Set kategori aktif dan sinkronkan dengan tombol chip kategori di halaman utama
+            selectedCategory = kategori;
+            
+            document.querySelectorAll('.chip-btn').forEach(b => {
+                const katAttr = b.getAttribute('data-kat');
+                if (katAttr.toLowerCase() === kategori.toLowerCase()) {
+                    b.classList.add('active', 'bg-amber-400', 'text-emerald-950');
+                    b.classList.remove('bg-white/10', 'text-white');
+                } else {
+                    b.classList.remove('active', 'bg-amber-400', 'text-emerald-950');
+                    b.classList.add('bg-white/10', 'text-white');
+                }
+            });
+
+            // Jalankan filter ulang dan tampilkan list kategori yang dipilih
+            applyFilters();
+            
+            // Gulir layar dengan halus ke bagian katalog/main content
+            document.getElementById('umkm-flex-container').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function renderNextBatch() {
+            if (isLoading) return;
+            isLoading = true;
+
+            const total = filteredDataset.length;
+            if (currentlyDisplayedCount >= total) {
+                loadingIndicator.classList.add('hidden');
+                if (total > 0) endMessage.classList.remove('hidden');
+                isLoading = false;
+                return;
+            }
+
+            loadingIndicator.classList.remove('hidden');
+
+            // Simulasi jeda scroll halus
+            setTimeout(() => {
+                const nextBatch = filteredDataset.slice(currentlyDisplayedCount, currentlyDisplayedCount + BATCH_SIZE);
+
+                nextBatch.forEach(item => {
+                    const cardElement = document.createElement('div');
+                    // Menggunakan Flex basis: w-full pada HP, w-1/2 pada Tablet, w-1/3 / w-1/4 pada Desktop
+                    cardElement.className = 'w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-2 flex flex-col';
+
+                    // Format link WhatsApp
+                    const cleanPhone = item.kontak.replace(/[^0-9]/g, '').replace(/^0/, '62');
+                    const waText = encodeURIComponent(`Halo ${item.nama}, saya melihat usaha Anda di Website UMKM Benjeng. Saya ingin bertanya...`);
+                    const waUrl = `https://wa.me/${cleanPhone}?text=${waText}`;
+
+                    cardElement.innerHTML = `
+                        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col h-full group">
+                            <!-- Image Header -->
+                            <div class="relative h-44 overflow-hidden bg-slate-100">
+                                <img src="${item.gambar}" 
+                                     alt="${item.nama}" 
+                                     onerror="this.onerror=null; this.src='${getFallbackImage(item.kategori)}';"
+                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                <span class="absolute top-3 right-3 bg-emerald-700/90 backdrop-blur text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-sm">
+                                    ${item.kategori}
+                                </span>
+                                <span class="absolute bottom-2 left-2 bg-slate-900/70 backdrop-blur text-slate-100 text-[11px] font-medium px-2 py-0.5 rounded-md flex items-center gap-1">
+                                    <i class="fa-solid fa-location-dot text-amber-400"></i> ${item.desa}
+                                </span>
+                            </div>
+
+                            <!-- Content -->
+                            <div class="p-4 flex-1 flex flex-col justify-between space-y-3">
+                                <div>
+                                    <h4 class="font-bold text-slate-900 text-base group-hover:text-emerald-700 transition line-clamp-1" title="${item.nama}">
+                                        ${item.nama}
+                                    </h4>
+                                    <p class="text-xs text-slate-500 line-clamp-2 mt-1 leading-relaxed">
+                                        ${item.deskripsi}
+                                    </p>
+                                </div>
+
+                                <div class="pt-2 border-t border-slate-100 flex items-center justify-between mt-auto">
+                                    <div class="text-[11px] text-slate-500 font-medium truncate pr-2">
+                                        <i class="fa-solid fa-user-tie text-slate-400"></i> ${item.pemilik}
+                                    </div>
+                                    <a href="${waUrl}" target="_blank" class="shrink-0 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition shadow-sm hover:shadow">
+                                        <i class="fa-brands fa-whatsapp text-sm"></i> Kontak
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    flexContainer.appendChild(cardElement);
+                });
+
+                currentlyDisplayedCount += nextBatch.length;
+                isLoading = false;
+
+                if (currentlyDisplayedCount >= total) {
+                    loadingIndicator.classList.add('hidden');
+                    endMessage.classList.remove('hidden');
+                }
+            }, 300);
+        }
+
+        /* Reset dan Filter Ulang */
+        function applyFilters() {
+            flexContainer.innerHTML = '';
+            currentlyDisplayedCount = 0;
+            endMessage.classList.add('hidden');
+            emptyState.classList.add('hidden');
+
+            filteredDataset = RAW_UMKM_DATABASE.filter(item => {
+                const matchCategory = (selectedCategory === 'all') || (item.kategori.toLowerCase() === selectedCategory.toLowerCase());
+                const matchSearch = item.nama.toLowerCase().includes(searchQuery) || 
+                                    item.deskripsi.toLowerCase().includes(searchQuery) ||
+                                    item.pemilik.toLowerCase().includes(searchQuery) ||
+                                    item.desa.toLowerCase().includes(searchQuery);
+                return matchCategory && matchSearch;
+            });
+
+            totalCountEl.textContent = filteredDataset.length;
+
+            if (filteredDataset.length === 0) {
+                loadingIndicator.classList.add('hidden');
+                emptyState.classList.remove('hidden');
+            } else {
+                renderNextBatch();
+            }
+        }
+
+        /* ==========================================================
+           4. INFINITE SCROLL EVENT LISTENER
+           ========================================================== */
+        window.addEventListener('scroll', () => {
+            const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+            // Panggil saat scroll berada 250px dari bawah halaman
+            if (scrollTop + clientHeight >= scrollHeight - 250) {
+                renderNextBatch();
+            }
+        });
+
+        /* ==========================================================
+           5. NAVBAR SEARCH & CHIP FILTER LISTENERS
+           ========================================================== */
+        searchInput.addEventListener('input', (e) => {
+            searchQuery = e.target.value.trim().toLowerCase();
+            if (searchQuery.length > 0) {
+                clearSearchBtn.classList.remove('hidden');
+            } else {
+                clearSearchBtn.classList.add('hidden');
+            }
+            applyFilters();
+        });
+
+        clearSearchBtn.addEventListener('click', () => {
+            searchInput.value = '';
+            searchQuery = '';
+            clearSearchBtn.classList.add('hidden');
+            applyFilters();
+        });
+
+        // Filter Kategori Chip
+        document.querySelectorAll('.chip-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.chip-btn').forEach(b => {
+                    b.classList.remove('active', 'bg-amber-400', 'text-emerald-950');
+                    b.classList.add('bg-white/10', 'text-white');
+                });
+                this.classList.add('active', 'bg-amber-400', 'text-emerald-950');
+                this.classList.remove('bg-white/10', 'text-white');
+
+                selectedCategory = this.getAttribute('data-kat');
+                applyFilters();
+            });
+        });
+
+        /* ==========================================================
+           6. SIDEBAR MENU TOGGLE (HIDE / SHOW LOGIC)
+           ========================================================== */
+        const sidebarMenu = document.getElementById('sidebar-menu');
+        const sidebarOverlay = document.getElementById('sidebar-overlay');
+        const openSidebarBtn = document.getElementById('open-sidebar-btn');
+        const closeSidebarBtn = document.getElementById('close-sidebar-btn');
+
+        function openSidebar() {
+            sidebarMenu.classList.remove('-translate-x-full');
+            sidebarOverlay.classList.remove('opacity-0', 'pointer-events-none');
+        }
+
+        function closeSidebar() {
+            sidebarMenu.classList.add('-translate-x-full');
+            sidebarOverlay.classList.add('opacity-0', 'pointer-events-none');
+        }
+
+        openSidebarBtn.addEventListener('click', openSidebar);
+        closeSidebarBtn.addEventListener('click', closeSidebar);
+        sidebarOverlay.addEventListener('click', closeSidebar);
+
+        /* ==========================================================
+           7. INITIALIZATION ON LOAD
+           ========================================================== */
+        window.addEventListener('DOMContentLoaded', () => {
+            applyFilters();
+        });
+    </script>
+</body>
+</html>
